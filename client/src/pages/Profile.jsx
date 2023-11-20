@@ -12,6 +12,9 @@ import {
   updateUserStart,
   updateUserSuccess,
   updateUserFaliure,
+  deleteUserFaliure,
+  deleteUserStart,
+  deleteUserSuccess,
 } from "../redux/user/userSlice.js";
 
 import { useDispatch } from "react-redux";
@@ -85,6 +88,22 @@ export default function Profile() {
       dispatch(updateUserFaliure(err.message));
     }
   };
+  const handleDeleteUser = async () => {
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`api/user/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFaliure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (err) {
+      dispatch(deleteUserFaliure(err.message));
+    }
+  };
   return (
     <div className="p-3 max-w-md mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
@@ -101,7 +120,7 @@ export default function Profile() {
           src={formData.avatar || currentUser.avatar}
           alt="profile"
           className="rounded-full
-         h-24 w-24 object-cover cursor-pointer self-center
+         h-32 w-32 object-cover cursor-pointer self-center
           mt-2"
         />
         <p className="text-sm self-center">
@@ -142,14 +161,21 @@ export default function Profile() {
         />
         <button
           disabled={loading}
-          className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80"
+          className=" bg-slate-900 text-white rounded-lg p-3 uppercase hover:opacity-95  disabled:opacity-80"
         >
           {loading ? "Loading..." : "Update"}
         </button>
       </form>
-      <div className="flex justify-between mt-5">
-        <span className="text-red-700 cursor-pointer">Delete account</span>
-        <span className="text-red-700 cursor-pointer">Sign out</span>
+      <div className="flex justify-between mt-4">
+        <span
+          onClick={handleDeleteUser}
+          className="text-red-700 cursor-pointer hover:underline"
+        >
+          Delete account
+        </span>
+        <span className="text-red-700 cursor-pointer hover:underline">
+          Sign out
+        </span>
       </div>
       <p className="text-red-700 mt-5">{error ? error : ""}</p>
       <p className="text-green-700 mt-5">

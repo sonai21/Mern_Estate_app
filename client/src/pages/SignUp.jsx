@@ -66,7 +66,7 @@ export default function SignUp() {
         />
         <button
           disabled={loading}
-          className="bg-slate-700 rounded-lg text-white p-3
+          className="bg-slate-900 rounded-lg text-white p-3
         uppercase hover:opacity-95 disabled:opacity-80"
         >
           {loading ? "Loading..." : "Sign up"}
@@ -76,7 +76,9 @@ export default function SignUp() {
       <div className="flex gap-2 mt-5 justify-center">
         <p>Have an account?</p>
         <Link to={"/sign-in"}>
-          <span className="text-green-700 hover:text-green-900">Sign in</span>
+          <span className="text-green-700 hover:underline hover:font-bold hover:letter-spacing-3 transition-all duration-300 ease-in-out">
+            Sign in
+          </span>
         </Link>
       </div>
       {error && <p className="text-red-500 mt5">{error}</p>}
