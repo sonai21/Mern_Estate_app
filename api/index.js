@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 
 const userRouter = require("./routes/user.route.js");
 const authRouter = require("./routes/auth.route.js");
+const listingRouter = require("./routes/listing.route.js");
 
 mongoose
   .connect(process.env.MONGODB)
@@ -30,6 +31,7 @@ app.listen(3000, () => {
 
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/listing", listingRouter);
 
 //middleware
 app.use((err, req, res, next) => {
