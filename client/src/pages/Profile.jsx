@@ -138,7 +138,7 @@ export default function Profile() {
           onClick={() => fileRef.current.click()}
           src={formData.avatar || currentUser.avatar}
           alt="profile"
-          className="rounded-full
+          className="rounded-full hover:shadow-lg
          h-32 w-32 object-cover cursor-pointer self-center
           mt-2"
         />
