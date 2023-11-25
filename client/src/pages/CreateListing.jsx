@@ -273,7 +273,7 @@ export default function CreateListing() {
                 required
                 className="p-3 border border-gray-300 rounded-lg"
                 onChange={handleChange}
-                value={formData.bedrooms}
+                value={formData.bathrooms}
               />
               <p>Baths</p>
             </div>
