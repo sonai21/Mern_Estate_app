@@ -5,18 +5,21 @@ import { GiBed } from "react-icons/gi";
 import { GiSofa } from "react-icons/gi";
 import { CiParking1 } from "react-icons/ci";
 import { GiBathtub } from "react-icons/gi";
-
+import { useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { Navigation } from "swiper/modules";
 import "swiper/css/bundle";
+import Contact from "../components/Contact";
 
 export default function Listing() {
   SwiperCore.use([Navigation]);
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState(false);
+  const [contact, setContact] = useState(false);
   const params = useParams();
+  const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -118,6 +121,17 @@ export default function Listing() {
                 )}
               </div>
             </div>
+            {currentUser && listing.userRef !== currentUser._id && !contact && (
+              <div>
+                <button
+                  onClick={() => setContact(true)}
+                  className="bg-slate-700 text-center text-white rounded-lg uppercase hover:opacity-90 p-3"
+                >
+                  Contact landlord
+                </button>
+              </div>
+            )}
+            {contact && <Contact listing={listing} />}
           </div>
         </>
       )}
