@@ -298,9 +298,11 @@ export default function Profile() {
                   >
                     Delete
                   </button>
-                  <button className="w-20 border border-yellow-600 p-1 rounded-md text-yellow-600 hover:text-white hover:bg-yellow-600">
-                    Edit
-                  </button>
+                  <Link to={`/update-listing/${listingItem._id}`}>
+                    <button className="w-20 border border-yellow-600 p-1 rounded-md text-yellow-600 hover:text-white hover:bg-yellow-600">
+                      Edit
+                    </button>
+                  </Link>
                 </div>
               </div>
             ))}
