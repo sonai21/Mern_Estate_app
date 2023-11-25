@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { FaLocationDot } from "react-icons/fa6";
+import { GiBed } from "react-icons/gi";
+import { GiSofa } from "react-icons/gi";
+import { CiParking1 } from "react-icons/ci";
+import { GiBathtub } from "react-icons/gi";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { Navigation } from "swiper/modules";
@@ -46,7 +52,7 @@ export default function Listing() {
             {listing.imageUrls.map((url) => (
               <SwiperSlide key={url}>
                 <div
-                  className="h-[550px]"
+                  className="h-[500px]"
                   style={{
                     background: `url(${url}) center no-repeat`,
                     backgroundSize: "cover",
@@ -55,6 +61,64 @@ export default function Listing() {
               </SwiperSlide>
             ))}
           </Swiper>
+          <div className="p-10 mx-auto md:mx-32">
+            <div className="flex justify-between items-center">
+              <h1 className="font-semibold text-2xl capitalize">
+                {listing.name}
+              </h1>
+              <h1 className="font-semibold text-xl text-blue-950 shadow-sm mr-20">
+                ${listing.regularPrice}
+              </h1>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <FaLocationDot className="text-green-700" />
+              <p className="capitalize my-5">{listing.address}</p>
+            </div>
+            <div className="flex gap-4">
+              <p className="p-2 bg-yellow-500 w-36 text-center font-semibold rounded-sm shadow-sm">
+                {listing.type === "rent" ? "For Rent" : "For Sale"}
+              </p>
+              <p className="p-2 bg-green-600 w-36 text-center font-semibold rounded-sm shadow-sm">
+                {listing.offer
+                  ? `Discount : $ ${listing.discountPrice}`
+                  : `Price : $ ${listing.regularPrice}`}
+              </p>
+            </div>
+            <div className="my-5">
+              <span className="font-semibold">Description : </span>
+              <span>{listing.description}</span>
+            </div>
+            <div className="flex gap-6 font-semibold">
+              <div className="flex text-green-700 items-center gap-1">
+                <GiBed />
+                <span>{listing.bedrooms}</span>
+                <span>Bed</span>
+              </div>
+              <div className="flex text-green-700 items-center gap-1">
+                <GiBathtub />
+                <span>{listing.bathrooms}</span>
+                <span>Baths</span>
+              </div>
+
+              <div className="flex text-green-700 items-center gap-1">
+                {listing.furnished && (
+                  <>
+                    <GiSofa />
+                    <span>Furnished</span>
+                  </>
+                )}
+              </div>
+              <div className="flex text-green-700 items-center gap-1">
+                {listing.parking && (
+                  <>
+                    <CiParking1 />
+                    <span>Parking</span>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
         </>
       )}
     </main>
