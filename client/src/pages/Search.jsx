@@ -6,6 +6,7 @@ export default function Search() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
+  const [showMore, setShowMore] = useState(false);
   const [sidebarData, setSidebarData] = useState({
     searchTerm: "",
     type: "all",
@@ -16,9 +17,6 @@ export default function Search() {
     sort: "created_at",
     order: "desc",
   });
-
-  console.log(listings);
-  console.log(loading);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -52,11 +50,17 @@ export default function Search() {
 
     const fetchListings = async () => {
       setLoading(true);
+      setShowMore(false);
       const searchQuery = urlParams.toString();
       const res = await fetch(`/api/listing/get?${searchQuery}`);
       const data = await res.json();
       setListings(data);
       setLoading(false);
+      if (data.length > 8) {
+        setShowMore(true);
+      } else {
+        setShowMore(false);
+      }
     };
 
     fetchListings();
@@ -102,6 +106,20 @@ export default function Search() {
         order,
       });
     }
+  };
+
+  const onShowMoreClick = async () => {
+    const numberOfListings = listings.length;
+    const startIndex = numberOfListings;
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set("startIndex", startIndex);
+    const searchQuery = urlParams.toString();
+    const res = await fetch(`/api/listing/get?${searchQuery}`);
+    const data = await res.json();
+    if (data.length < 9) {
+      setShowMore(false);
+    }
+    setListings([...listings, ...data]);
   };
 
   const handleSubmit = (e) => {
@@ -248,6 +266,15 @@ export default function Search() {
             listings.map((listing) => {
               return <ListingItem key={listing._id} listing={listing} />;
             })}
+
+          {showMore && (
+            <button
+              onClick={onShowMoreClick}
+              className="text-green-700 hover:underline hover:font-semibold p-7 text-center w-full"
+            >
+              show more
+            </button>
+          )}
         </div>
       </div>
     </div>
