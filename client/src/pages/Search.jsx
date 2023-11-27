@@ -14,7 +14,7 @@ export default function Search() {
     offer: false,
     furnished: false,
     offer: false,
-    sort: "created_at",
+    sort: "createdAt",
     order: "desc",
   });
 
@@ -43,7 +43,7 @@ export default function Search() {
         parking: parkingFormUrl === "true" ? true : false,
         furnished: furnishedFormUrl === "true" ? true : false,
         offer: offerFormUrl === "true" ? true : false,
-        sort: sortFormUrl || "created_at",
+        sort: sortFormUrl || "createdAt",
         order: orderFormUrl || "desc",
       });
     }
@@ -98,7 +98,7 @@ export default function Search() {
     }
 
     if (e.target.id === "sort_order") {
-      const sort = e.target.value.split("_")[0] || "created_at";
+      const sort = e.target.value.split("_")[0] || "createdAt";
       const order = e.target.value.split("_")[1] || "desc";
       setSidebarData({
         ...sidebarData,
@@ -230,12 +230,12 @@ export default function Search() {
               className="border rounded-lg p-3
             "
               onChange={handleChange}
-              defaultValue={"created_at_desc"}
+              defaultValue={"createdAt_desc"}
             >
               <option value="regularPrice_desc">Price high to low</option>
               <option value="regularPrice_asc">Price low to high</option>
-              <option value="created_at_desc">Latest</option>
-              <option value="created_at_asc">Oldest</option>
+              <option value="createdAt_desc">Latest</option>
+              <option value="createdAt_asc">Oldest</option>
             </select>
           </div>
           <button
