@@ -41,7 +41,7 @@ export default function Contact({ listing }) {
             className="w-full border p-3 rounded-lg focus-within:outline outline-1 border-blue-950"
           ></textarea>
           <Link
-            to={`mailto:${landLord.email}?subject=Regarding ${listing.name}&body={message}`}
+            to={`mailto:${landLord.email}?subject=Regarding ${listing.name}&body=${message}`}
             className="bg-slate-700 text-white text-center p-3 uppercase rounded-lg hover:opacity-75"
           >
             Send Message

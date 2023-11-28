@@ -275,23 +275,23 @@ export default function Profile() {
             {userListings.map((listingItem) => (
               <div
                 key={listingItem._id}
-                className="border p-3 shadow-sm flex  items-center justify-between"
+                className="border p-3 shadow-sm flex  items-center justify-between gap-4"
               >
-                <div className="flex items-center gap-4">
-                  <Link to={`/listing/${listingItem._id}`}>
-                    <img
-                      src={listingItem.imageUrls[0]}
-                      alt="listing cover"
-                      className="h-16 object-contain rounded-sm hover:shadow-md"
-                    />
-                  </Link>
-                  <Link to={`/listing/${listingItem._id}`}>
-                    <p className="text-slate-700 font-semibold hover:underline truncate">
-                      {listingItem.name}
-                    </p>
-                  </Link>
-                </div>
-                <div className="flex flex-col gap-1">
+                <Link to={`/listing/${listingItem._id}`}>
+                  <img
+                    src={listingItem.imageUrls[0]}
+                    alt="listing cover"
+                    className="h-16 object-contain rounded-sm hover:shadow-md"
+                  />
+                </Link>
+                <Link
+                  to={`/listing/${listingItem._id}`}
+                  className="text-slate-700 font-semibold hover:underline truncate w-full flex-1"
+                >
+                  <p>{listingItem.name}</p>
+                </Link>
+
+                <div className="flex flex-col items-center gap-1">
                   <button
                     onClick={() => handleListingDelete(listingItem._id)}
                     className="w-20 bg-red-600 text-white p-1 rounded-md hover:opacity-90"

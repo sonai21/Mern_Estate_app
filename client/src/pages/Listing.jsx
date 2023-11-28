@@ -3,8 +3,9 @@ import { useParams } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { GiBed } from "react-icons/gi";
 import { GiSofa } from "react-icons/gi";
-import { CiParking1 } from "react-icons/ci";
+import { LuParkingCircle } from "react-icons/lu";
 import { GiBathtub } from "react-icons/gi";
+import { BsSignNoParking } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
@@ -27,7 +28,6 @@ export default function Listing() {
         setLoading(true);
         const res = await fetch(`/api/listing/get/${params.listingId}`);
         const data = await res.json();
-        console.log(data);
         if (data.success === false) {
           setLoading(false);
           setErrors(true);
@@ -65,8 +65,8 @@ export default function Listing() {
             ))}
           </Swiper>
           <div className="p-10 mx-auto md:mx-32">
-            <div className="flex justify-between items-center">
-              <h1 className="font-semibold text-2xl capitalize">
+            <div className="flex justify-between items-center flex-wrap">
+              <h1 className="font-semibold text-2xl capitalize text-blue-950 ">
                 {listing.name}
               </h1>
               <h1 className="font-semibold text-xl text-blue-950 shadow-sm mr-20">
@@ -76,21 +76,25 @@ export default function Listing() {
 
             <div className="flex items-center gap-2">
               <FaLocationDot className="text-green-700" />
-              <p className="capitalize my-5">{listing.address}</p>
+              <p className="capitalize my-5 text-slate-600">
+                {listing.address}
+              </p>
             </div>
-            <div className="flex gap-4">
-              <p className="p-2 bg-yellow-500 w-36 text-center font-semibold rounded-sm shadow-sm">
+            <div className="flex gap-4 text-white items-center">
+              <p className="p-2 bg-red-700 w-full max-w-[150px] text-center rounded-md shadow-sm">
                 {listing.type === "rent" ? "For Rent" : "For Sale"}
               </p>
-              <p className="p-2 bg-green-600 w-36 text-center font-semibold rounded-sm shadow-sm">
+              <p className="p-2 w-full max-w-[150px] bg-green-700  text-center rounded-md shadow-sm">
                 {listing.offer
                   ? `Discount : $ ${listing.discountPrice}`
                   : `Price : $ ${listing.regularPrice}`}
               </p>
             </div>
             <div className="my-5">
-              <span className="font-semibold">Description : </span>
-              <span>{listing.description}</span>
+              <span className="font-semibold text-slate-800">
+                Description -{" "}
+              </span>
+              <span className="text-slate-800">{listing.description}</span>
             </div>
             <div className="flex gap-6 font-semibold">
               <div className="flex text-green-700 items-center gap-1">
@@ -104,28 +108,30 @@ export default function Listing() {
                 <span>Baths</span>
               </div>
 
-              <div className="flex text-green-700 items-center gap-1">
-                {listing.furnished && (
-                  <>
-                    <GiSofa />
-                    <span>Furnished</span>
-                  </>
-                )}
-              </div>
-              <div className="flex text-green-700 items-center gap-1">
-                {listing.parking && (
-                  <>
-                    <CiParking1 />
-                    <span>Parking</span>
-                  </>
-                )}
-              </div>
+              {listing.furnished && (
+                <div className="flex text-green-700 items-center gap-1">
+                  <GiSofa />
+                  <span>Furnished</span>
+                </div>
+              )}
+
+              {listing.parking ? (
+                <div className="flex text-green-700 items-center gap-1">
+                  <LuParkingCircle />
+                  <span>Parking</span>
+                </div>
+              ) : (
+                <div className="flex text-red-700 items-center gap-1">
+                  <BsSignNoParking />
+                  <span>No Parking</span>
+                </div>
+              )}
             </div>
             {currentUser && listing.userRef !== currentUser._id && !contact && (
               <div>
                 <button
                   onClick={() => setContact(true)}
-                  className="bg-slate-700 text-center text-white rounded-lg uppercase hover:opacity-90 p-3"
+                  className="bg-slate-700 text-center text-white rounded-lg uppercase hover:opacity-90 p-3 w-full my-6"
                 >
                   Contact landlord
                 </button>

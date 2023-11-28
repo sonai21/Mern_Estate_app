@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function Header() {
@@ -25,10 +25,10 @@ export default function Header() {
     }
   }, [location.search]);
   return (
-    <header className="bg-slate-200 shadow-md sticky top-0">
+    <header className="bg-slate-200 shadow-md sticky top-0 left-0 z-50">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
         <Link to="/">
-          <h1 className="font-bold text-lg sm:text-2xl flex flex-wrap ">
+          <h1 className="font-bold text-lg sm:text-2xl flex flex-wrap">
             <span className="text-slate-500 ">Your</span>
             <span className="text-slate-700">Estate</span>
           </h1>
